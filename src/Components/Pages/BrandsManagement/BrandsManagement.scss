@@ -1,0 +1,5 @@
+@import "../../../App.scss";
+.brands_modal {
+  @extend %modal;
+  // margin-top: -70px;
+}

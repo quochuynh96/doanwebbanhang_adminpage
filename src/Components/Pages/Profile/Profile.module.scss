@@ -1,0 +1,28 @@
+@import "../../../App.scss";
+
+.profile {
+  @extend %outline;
+  padding: 20px 30px;
+  min-height: 840px;
+  &_avatar {
+    text-align: center;
+    img {
+      width: 100%;
+      border-radius: 50%;
+    }
+    button {
+      margin-top: 20px;
+    }
+  }
+  &_infor {
+    h1 {
+      font-size: 24px;
+    }
+    &_group {
+      margin-top: 20px;
+      label {
+        font-family: "Open Sans", sans-serif;
+      }
+    }
+  }
+}

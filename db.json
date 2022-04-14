@@ -1,0 +1,180 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "description": "Work income",
+      "value": 1000,
+      "isExpense": false
+    },
+    {
+      "id": 2,
+      "description": "Water bill",
+      "value": 20,
+      "isExpense": true
+    },
+    {
+      "id": 3,
+      "description": "Rent",
+      "value": 300,
+      "isExpense": true
+    },
+    {
+      "id": 4,
+      "description": "Power bill",
+      "value": 50,
+      "isExpense": true
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "image": "https://cdn.tgdd.vn/Products/Images/42/245261/xiaomi-redmi-note-11-thumb1-600x600.jpg",
+      "name": "Xiaomi Redmi Note 11",
+      "price": 4000000,
+      "amount": 1900,
+      "inputDate": "12/02/2021",
+      "category": "Điện thoại",
+      "brand": "Xiaomi"
+    },
+    {
+      "id": 2,
+      "image": "https://cdn.tgdd.vn/Products/Images/42/230521/iphone-13-pro-sierra-blue-600x600.jpg",
+      "name": "iPhone 13 Pro",
+      "price": 30990000,
+      "amount": 10,
+      "inputDate": "12/02/2021",
+      "category": "Điện thoại",
+      "brand": "Apple"
+    },
+    {
+      "id": 3,
+      "image": "https://cdn.tgdd.vn/Products/Images/42/235838/Galaxy-S22-Ultra-Burgundy-600x600.jpg",
+      "name": "Galaxy S22 Ultra Burgundy",
+      "price": 31990000,
+      "amount": 100,
+      "inputDate": "12/02/2021",
+      "category": "Điện thoại",
+      "brand": "Samsung"
+    },
+    {
+      "id": "8af62f5b-7f17-4c14-9123-3a539313e18a",
+      "image": "",
+      "name": "3eqwe",
+      "price": "32131",
+      "amount": "21",
+      "inputDate": "2022-02-20",
+      "category": "Điện thoại",
+      "brand": "Apple",
+      "description": "wsdasda"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "image": "https://cdn.tgdd.vn/2021/12/banner/830-300-830x300-24.png",
+      "title": "Banner 0",
+      "typeBanner": "Main",
+      "linkToWeb": "https://www.thegioididong.com/",
+      "orderIndex": 0,
+      "created": "2021-12-03",
+      "status": true
+    },
+    {
+      "id": 2,
+      "image": "https://cdn.tgdd.vn/2022/02/banner/S22-830-300-830x300-2.png",
+      "title": "Banner 1",
+      "typeBanner": "Sub",
+      "linkToWeb": "https://www.thegioididong.com/",
+      "orderIndex": 1,
+      "created": "2021-12-03",
+      "status": false
+    },
+    {
+      "id": 3,
+      "image": "https://cdn.tgdd.vn/2022/02/banner/830-300-830x300-15.png",
+      "title": "Banner 2",
+      "typeBanner": "Main",
+      "linkToWeb": "https://www.thegioididong.com/",
+      "orderIndex": 2,
+      "created": "2021-12-03",
+      "status": true
+    }
+  ],
+  "brands": [
+    {
+      "id": 1,
+      "image": "https://cdn.tgdd.vn/Brand/1/Apple482-b_37.jpg",
+      "name": "Apple",
+      "slug": "Slug"
+    },
+    {
+      "id": 2,
+      "image": "https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png",
+      "name": "Samsung",
+      "slug": "Slug"
+    },
+    {
+      "id": 3,
+      "image": "https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg",
+      "name": "Oppo",
+      "slug": "Slug"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Điện thoại",
+      "slug": "Slug"
+    },
+    {
+      "id": 2,
+      "name": "Laptop",
+      "slug": "Slug"
+    },
+    {
+      "id": 3,
+      "name": "Phụ kiện",
+      "slug": "Slug"
+    },
+    {
+      "id": "5b0d6db5-d61d-4cdd-a37c-b652b85c8e58",
+      "name": "dsadas",
+      "slug": "dsad312321"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "avatar": "https://nhathauxaydung24h.com/wp-content/uploads/2021/12/avatar-nu-nguoi-that.jpg",
+      "username": "voduchuy",
+      "password": "123",
+      "fullname": "Võ Đức Huy",
+      "gender": 1,
+      "birthday": "2001-07-09",
+      "phoneNumber": "0849064659",
+      "active": true
+    },
+    {
+      "id": 2,
+      "avatar": "https://thuthuatnhanh.com/wp-content/uploads/2018/07/anh-dai-dien-dep.jpg",
+      "username": "tranthanhai",
+      "password": "123",
+      "fullname": "Trần Thanh Hải",
+      "gender": 0,
+      "birthday": "2001-01-02",
+      "phoneNumber": "0849064659",
+      "active": true
+    },
+    {
+      "id": 3,
+      "avatar": "https://thuthuatnhanh.com/wp-content/uploads/2020/10/hinh-anh-doraemon-ngai-ngung-390x390.jpg",
+      "username": "takimtai",
+      "password": "123",
+      "fullname": "Tạ Kim Tài",
+      "gender": 1,
+      "birthday": "2001-11-05",
+      "phoneNumber": "0849064659",
+      "active": false
+    }
+  ]
+}

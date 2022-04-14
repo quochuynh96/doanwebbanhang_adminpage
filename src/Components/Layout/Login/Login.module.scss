@@ -1,0 +1,54 @@
+.login {
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+  }
+  &_logo {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  &_form {
+    width: 400px;
+    label {
+      font-family: "Open Sans", sans-serif;
+    }
+    &_forgot_password {
+      text-align: right;
+      color: #1890ff;
+      font-style: italic;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      &:hover {
+        color: #120fce;
+      }
+    }
+  }
+  &_forgotpassword {
+    &_submit {
+      text-align: right;
+      margin-top: 100px;
+      button {
+        width: 100%;
+      }
+    }
+    &_group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    &_from {
+      border: 1px solid #ccc;
+      padding: 30px;
+      height: 300px;
+      &_title {
+        font-family: "Open Sans", sans-serif;
+      }
+    }
+  }
+}

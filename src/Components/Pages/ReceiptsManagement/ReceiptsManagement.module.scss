@@ -1,0 +1,25 @@
+@import "../../../App.scss";
+
+.receipt {
+  &_title {
+    @extend %title-management;
+  }
+  &_manager {
+    @extend %outline;
+    padding: 20px 30px;
+  }
+  &_name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    input {
+      width: 90%;
+    }
+  }
+
+  &_item_product {
+    border: 1px solid #ccc;
+    height: 50px;
+    width: 100%;
+  }
+}

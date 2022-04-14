@@ -1,0 +1,25 @@
+.sidemenu {
+  text-align: center;
+  &_menu {
+    ul,
+    li {
+      color: #fff;
+    }
+    .ant-divider {
+      background-color: #b5a498;
+    }
+    .ant-menu-title-content {
+      font-size: 16px;
+      font-family: "Open Sans", sans-serif;
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .ant-menu-item-divider {
+    width: 210px;
+    margin: 25px auto;
+    filter: brightness(70%);
+  }
+}

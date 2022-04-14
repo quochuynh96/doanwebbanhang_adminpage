@@ -1,0 +1,43 @@
+@import "../../../App.scss";
+
+.statisticals {
+  &_title {
+    @extend %title-management;
+  }
+  &_chart {
+    @extend %outline;
+    overflow: hidden;
+    &_title {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f8f9fc;
+      padding: 15px 30px;
+      span {
+        font-size: 18px;
+        font-family: "Inter", sans-serif;
+        color: #4e73df;
+      }
+    }
+    &_content {
+      padding: 30px;
+    }
+  }
+  &_table {
+    margin-top: 30px;
+    padding: 20px 30px;
+    @extend %outline;
+  }
+}
+.totalMoneyStatistical {
+  @extend %outline;
+  font-size: 24px;
+  padding: 20px 30px;
+  margin-top: 30px;
+  text-align: right;
+  font-family: "Open Sans", sans-serif;
+  span {
+    font-family: "Inter", sans-serif;
+    color: #4e73df;
+    font-weight: bold;
+  }
+}

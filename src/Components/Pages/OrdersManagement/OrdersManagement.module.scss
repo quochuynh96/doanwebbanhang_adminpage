@@ -1,0 +1,17 @@
+@import "../../../App.scss";
+
+.order {
+  &_title {
+    @extend %title-management;
+  }
+  &_manager {
+    @extend %outline;
+    padding: 20px 30px;
+    &_table {
+      table {
+        min-height: 600px;
+      }
+      margin-top: 30px;
+    }
+  }
+}

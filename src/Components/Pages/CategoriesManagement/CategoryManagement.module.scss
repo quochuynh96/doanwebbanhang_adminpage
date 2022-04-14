@@ -1,0 +1,53 @@
+@import "../../../App.scss";
+
+.category {
+  &_overlay {
+    @extend %overlay;
+  }
+  &_title {
+    @extend %title-management;
+  }
+  &_manager {
+    &_table {
+      @extend %outline;
+      padding: 20px 30px;
+      table {
+        min-height: 600px;
+      }
+      &_table {
+        margin-top: 30px;
+        table {
+          background-color: #fff !important;
+        }
+        &_col1 {
+          width: 10%;
+        }
+        &_col2 {
+          width: 35%;
+        }
+        &_col3 {
+          width: 30%;
+        }
+        &_col4 {
+          width: 20%;
+        }
+        &-col5 {
+          width: 5%;
+          background-color: black;
+        }
+      }
+    }
+    &_handle {
+      @extend %outline;
+      padding: 20px 30px;
+      input {
+        border-radius: 10px;
+      }
+      button {
+        margin-right: 20px;
+        width: 100px;
+        border-radius: 10px;
+      }
+    }
+  }
+}

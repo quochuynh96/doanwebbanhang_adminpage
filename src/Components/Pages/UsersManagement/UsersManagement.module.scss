@@ -1,0 +1,84 @@
+@import "../../../App.scss";
+
+.user {
+  &_title {
+    @extend %title-management;
+  }
+  &_manager {
+    &_image {
+      @extend %outline;
+
+      padding: 30px;
+      img {
+        width: 100%;
+        margin-bottom: 30px;
+      }
+
+      &:last-child {
+        margin-top: 30px;
+      }
+    }
+    &_button {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      button {
+        width: 47.5%;
+        border-radius: 10px;
+      }
+    }
+    &_info {
+      @extend %outline;
+      padding: 30px;
+    }
+    &_modal {
+      width: 1200px !important;
+    }
+
+    &_table {
+      @extend %outline;
+      padding: 20px 30px;
+      table {
+        margin-top: 30px;
+      }
+      &_col0 {
+        width: 10%;
+        img {
+          @extend %image;
+          width: 70px !important;
+          height: 70px !important;
+        }
+      }
+      &_col1 {
+        width: 10%;
+      }
+      &_col2 {
+        width: 10%;
+      }
+      &_col3 {
+        width: 7%;
+      }
+      &_col4 {
+        width: 8%;
+      }
+      &_col5 {
+        width: 10%;
+      }
+      &_col6 {
+        width: 10%;
+      }
+      &_col7 {
+        width: 10%;
+      }
+      &_col8 {
+        width: 10%;
+      }
+      &_col9 {
+        width: 10%;
+      }
+      &_col10 {
+        width: 5%;
+      }
+    }
+  }
+}
