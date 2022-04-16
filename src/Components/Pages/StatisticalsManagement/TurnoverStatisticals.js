@@ -22,6 +22,7 @@ Chart.register(CategoryScale, LinearScale, LineElement, PointElement);
 const TurnoverStatisticals = () => {
   const [dataSource, setDataSource] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     fetchOrders()
@@ -77,7 +78,13 @@ const TurnoverStatisticals = () => {
 
       setDataSource(Object.keys(collecttedProducts).map((key) => (collecttedProducts[key])));
     }
-  }, [orders])
+  }, [orders]);
+
+  useEffect(() => {
+    let temp = 0;
+    dataSource.forEach((item) => temp += item.totalMoney);
+    setTotal(temp);
+  }, [dataSource]);
 
   // for (let i = 1; i < 20; i++) {
   //   dataSource.push({
@@ -240,7 +247,7 @@ const TurnoverStatisticals = () => {
           titleChart={titleChart}
       />
       <div className={styles.totalMoneyStatistical}>
-        Tổng doanh thu: <span>{MoneyFormat(50000000000)}</span>
+        Tổng doanh thu: <span>{MoneyFormat(total)}</span>
       </div>
     </div>
   );
