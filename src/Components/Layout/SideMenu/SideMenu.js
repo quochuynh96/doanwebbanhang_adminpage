@@ -5,13 +5,10 @@ import "./SideMenu.scss";
 import {
   AppstoreOutlined,
   AreaChartOutlined,
-  ClusterOutlined,
   ContainerOutlined,
   DashboardOutlined,
-  FormOutlined,
   InboxOutlined,
   LayoutOutlined,
-  PicCenterOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
@@ -51,6 +48,11 @@ const SideMenu = () => {
       pathname: "/product-management",
       icon: <InboxOutlined style={{ fontSize: 16 }} />,
       name: "Sản phẩm",
+    },
+    {
+      pathname: "/user-management",
+      icon: <UserOutlined  style={{ fontSize: 16 }}/>,
+      name: "Người dùng",
     },
     {
       pathname: "/brand-management",
@@ -93,15 +95,15 @@ const SideMenu = () => {
         },
       ],
     },
-    {
-      key: 3,
-      pathname: "divider",
-    },
-    {
-      pathname: "/user-management",
-      icon: <UserOutlined style={{ fontSize: "16px" }} />,
-      name: "Tài khoản",
-    },
+    // {
+    //   key: 3,
+    //   pathname: "divider",
+    // },
+    // {
+    //   pathname: "/user-management",
+    //   icon: <UserOutlined style={{ fontSize: "16px" }} />,
+    //   name: "Tài khoản",
+    // },
   ];
 
   return (

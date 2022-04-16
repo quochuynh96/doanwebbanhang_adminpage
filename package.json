@@ -13,6 +13,7 @@
     "axios": "^0.25.0",
     "chart.js": "^3.7.0",
     "firebase": "^9.6.10",
+    "lodash": "^4.17.21",
     "node-sass": "^7.0.0",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.0.0",

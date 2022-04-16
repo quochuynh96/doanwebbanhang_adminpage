@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Line } from "react-chartjs-2";
 import StatisticalsManagement from "./StatisticalsManagement";
 import {
@@ -13,35 +13,87 @@ import { Dropdown, Menu, Table } from "antd";
 import { Select } from "antd";
 import { MoreOutlined } from "@ant-design/icons/lib/icons";
 import { MoneyFormat } from "../../Common/formatUtils";
+import {url} from "../../../App";
+import {isEmpty} from "lodash";
 
 const { Option } = Select;
 
 Chart.register(CategoryScale, LinearScale, LineElement, PointElement);
 const TurnoverStatisticals = () => {
-  const dataSource = [];
+  const [dataSource, setDataSource] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-  for (let i = 1; i < 20; i++) {
-    dataSource.push({
-      key: i,
-      nameProduct: "Product " + i,
-      typeProduct: 32,
-      totalSolds: "5",
-      price: MoneyFormat(5600000),
-      discount: MoneyFormat(200000),
-      totalMoney: MoneyFormat(5600000 - 200000),
-    });
-  }
+  useEffect(() => {
+    fetchOrders()
+  }, []);
+
+  const fetchOrders = () => {
+    fetch(url + "/orders.json")
+        .then((res) => {
+          return res.json();
+        })
+        .then((dataResponse) => {
+          let data = [];
+          for (let key in dataResponse) {
+            data.push({ id: key, ...dataResponse[key] });
+          }
+          data
+              .sort(function (a, b) {
+                return a.createdDate - b.createdDate;
+              })
+              .reverse();
+          setOrders(data);
+        });
+
+    if (orders.length) {
+      const collecttedProducts = {};
+      orders.forEach((order) => {
+        if (order.orderItems.length) {
+          order.orderItems.forEach((item) => {
+            if (item.id) {
+              let temp = collecttedProducts[item.id] || {};
+              if (isEmpty(temp)) {
+                temp = {
+                  key: Math.floor(Math.random() * 10000) + 1,
+                  nameProduct: item.name,
+                  totalSolds: 1,
+                  price: item.price,
+                  totalMoney: item.price,
+                }
+              } else {
+                temp = {
+                  ...temp,
+                  totalSolds: temp.totalSolds + 1,
+                  totalMoney: temp.totalMoney + item.price
+                }
+              }
+              collecttedProducts[item.id] = temp;
+            }
+          })
+        }
+      });
+
+      setDataSource(Object.keys(collecttedProducts).map((key) => (collecttedProducts[key])));
+    }
+  };
+
+  // for (let i = 1; i < 20; i++) {
+  //   dataSource.push({
+  //     key: i,
+  //     nameProduct: "Product " + i,
+  //     typeProduct: 32,
+  //     totalSolds: "5",
+  //     price: MoneyFormat(5600000),
+  //     discount: MoneyFormat(200000),
+  //     totalMoney: MoneyFormat(5600000 - 200000),
+  //   });
+  // }
 
   const columns = [
     {
       title: "Tên sản phẩm",
       dataIndex: "nameProduct",
       key: "name",
-    },
-    {
-      title: "Loại sản phẩm",
-      dataIndex: "typeProduct",
-      key: "typeProduct",
     },
     {
       title: "Số lượng bán",
@@ -54,16 +106,12 @@ const TurnoverStatisticals = () => {
       key: "price",
     },
     {
-      title: "Giảm giá",
-      dataIndex: "discount",
-      key: "discount",
-    },
-    {
       title: "Tổng tiền",
       dataIndex: "totalMoney",
       key: "totalMoney",
     },
   ];
+
   const chart = (
     <Line
       style={{ height: "420px" }}
@@ -176,18 +224,18 @@ const TurnoverStatisticals = () => {
   return (
     <div>
       <StatisticalsManagement
-        title="Thống kê doanh thu"
-        chart={chart}
-        className={styles.statisticals_chart_content}
-        table={
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            pagination={{ pageSize: 10 }}
-          />
-        }
-        select={selectFilter}
-        titleChart={titleChart}
+          title="Thống kê doanh thu"
+          chart={chart}
+          className={styles.statisticals_chart_content}
+          table={
+            <Table
+                dataSource={[...dataSource]}
+                columns={columns}
+                pagination={{pageSize: 10}}
+            />
+          }
+          select={selectFilter}
+          titleChart={titleChart}
       />
       <div className={styles.totalMoneyStatistical}>
         Tổng doanh thu: <span>{MoneyFormat(50000000000)}</span>

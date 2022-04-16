@@ -31,7 +31,6 @@ const pages = [
     element: <ProductManagement />,
     exact: false,
   },
-
   {
     path: "/category-management",
     element: <CategoryManagement />,

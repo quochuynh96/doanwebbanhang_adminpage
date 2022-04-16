@@ -39,7 +39,7 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
     setTimeout(() => {
       getAllUsers();
     }, 2000);
-    
+
     return new Promise((resolve) => {
       setTimeout(() => resolve(), 2000);
     });
@@ -132,13 +132,13 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
       className: styles.user_manager_table_col7,
       align: "center",
     },
-    {
-      title: "Quyền sử dụng",
-      dataIndex: "role",
-      key: "role",
-      className: styles.user_manager_table_col8,
-      align: "center",
-    },
+    // {
+    //   title: "Quyền sử dụng",
+    //   dataIndex: "role",
+    //   key: "role",
+    //   className: styles.user_manager_table_col8,
+    //   align: "center",
+    // },
     {
       title: "Kích hoạt",
       dataIndex: "active",
