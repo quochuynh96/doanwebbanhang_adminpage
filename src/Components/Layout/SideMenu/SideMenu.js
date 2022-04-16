@@ -76,23 +76,23 @@ const SideMenu = () => {
     {
       pathname: "submenu",
       menuItem: [
-        {
-          pathName: "/statistical-management/rate",
-          name: "Đánh giá",
-        },
-        {
-          pathName: "/statistical-management/product",
-          name: "Sản phẩm",
-        },
+        // {
+        //   pathName: "/statistical-management/rate",
+        //   name: "Đánh giá",
+        // },
+        // {
+        //   pathName: "/statistical-management/product",
+        //   name: "Sản phẩm",
+        // },
         {
           pathName: "/statistical-management/turnover",
           name: "Doanh thu",
         },
-        {
-          key: 15,
-          pathName: "/statistical-management/customer",
-          name: "Khách hàng",
-        },
+        // {
+        //   key: 15,
+        //   pathName: "/statistical-management/customer",
+        //   name: "Khách hàng",
+        // },
       ],
     },
     // {

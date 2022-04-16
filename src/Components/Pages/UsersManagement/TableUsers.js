@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import styles from "./UsersManagement.module.scss";
 
 import { removeAccents } from "../../Common/StringUtils";
+import {url} from "../../../App";
 
 const TableUsers = ({ updateUser, getAllUsers }) => {
   const usersData = useSelector((state) => state.users);
@@ -59,6 +60,7 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
       email: user.email,
       address: user.address,
       role: user.role,
+      totalBought: user.totalBought,
       active: (
         <Popconfirm
           title={
@@ -132,13 +134,13 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
       className: styles.user_manager_table_col7,
       align: "center",
     },
-    // {
-    //   title: "Quyền sử dụng",
-    //   dataIndex: "role",
-    //   key: "role",
-    //   className: styles.user_manager_table_col8,
-    //   align: "center",
-    // },
+    {
+      title: "Đã mua",
+      dataIndex: "totalBought",
+      key: "totalBought",
+      className: styles.user_manager_table_col8,
+      align: "center",
+    },
     {
       title: "Kích hoạt",
       dataIndex: "active",
@@ -156,7 +158,37 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
   ];
 
   useEffect(() => {
-    setUsersFilter(usersData);
+    let orderData = [];
+    fetch(url + "/orders.json")
+        .then((res) => {
+          return res.json();
+        })
+        .then((dataResponse) => {
+          let data = [];
+          for (let key in dataResponse) {
+            data.push({ id: key, ...dataResponse[key] });
+          }
+          data
+              .sort(function (a, b) {
+                return a.createdDate - b.createdDate;
+              })
+              .reverse();
+          orderData = data;
+
+          const collectedUser = {};
+          usersData.forEach((user) => {
+            collectedUser[user.email] = 0;
+          });
+          orderData.forEach((order) => {
+            console.log(order.user.email);
+            collectedUser[order.user.email] = collectedUser[order.user.email] + order.totalPrice;
+          })
+
+          setUsersFilter(usersData.map((user) => ({
+            ...user,
+            totalBought: collectedUser[user.email]
+          })));
+        });
   }, [usersData]);
 
   return (
