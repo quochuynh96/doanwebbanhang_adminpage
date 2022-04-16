@@ -177,16 +177,15 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
 
           const collectedUser = {};
           usersData.forEach((user) => {
-            collectedUser[user.email] = 0;
+            collectedUser[user.phoneNumber] = 0;
           });
           orderData.forEach((order) => {
-            console.log(order.user.email);
-            collectedUser[order.user.email] = collectedUser[order.user.email] + order.totalPrice;
+            collectedUser[order.user.phoneNumber] = collectedUser[order.user.phoneNumber] + order.totalPrice;
           })
 
           setUsersFilter(usersData.map((user) => ({
             ...user,
-            totalBought: collectedUser[user.email]
+            totalBought: collectedUser[user.phoneNumber]
           })));
         });
   }, [usersData]);
