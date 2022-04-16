@@ -135,7 +135,7 @@ const TableUsers = ({ updateUser, getAllUsers }) => {
       align: "center",
     },
     {
-      title: "Đã mua",
+      title: "Đã mua (VNĐ)",
       dataIndex: "totalBought",
       key: "totalBought",
       className: styles.user_manager_table_col8,
