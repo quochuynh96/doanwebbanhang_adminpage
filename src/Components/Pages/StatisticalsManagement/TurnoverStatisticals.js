@@ -44,7 +44,9 @@ const TurnoverStatisticals = () => {
               .reverse();
           setOrders(data);
         });
+  };
 
+  useEffect(() => {
     if (orders.length) {
       const collecttedProducts = {};
       orders.forEach((order) => {
@@ -75,7 +77,7 @@ const TurnoverStatisticals = () => {
 
       setDataSource(Object.keys(collecttedProducts).map((key) => (collecttedProducts[key])));
     }
-  };
+  }, [orders])
 
   // for (let i = 1; i < 20; i++) {
   //   dataSource.push({
