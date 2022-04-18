@@ -234,7 +234,7 @@ const TurnoverStatisticals = () => {
     <div>
       <StatisticalsManagement
           title="Thống kê doanh thu"
-          chart={chart}
+          // chart={chart}
           className={styles.statisticals_chart_content}
           table={
             <Table
@@ -243,8 +243,8 @@ const TurnoverStatisticals = () => {
                 pagination={{pageSize: 10}}
             />
           }
-          select={selectFilter}
-          titleChart={titleChart}
+          // select={selectFilter}
+          // titleChart={titleChart}
       />
       <div className={styles.totalMoneyStatistical}>
         Tổng doanh thu: <span>{MoneyFormat(total)}</span>
