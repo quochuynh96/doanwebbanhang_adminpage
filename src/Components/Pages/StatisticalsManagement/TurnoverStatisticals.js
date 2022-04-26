@@ -9,20 +9,34 @@ import {
   PointElement,
 } from "chart.js";
 import styles from "./StatisticalsManagement.module.scss";
-import { Dropdown, Menu, Table } from "antd";
+import {Button, Dropdown, Menu, Table} from "antd";
 import { Select } from "antd";
 import { MoreOutlined } from "@ant-design/icons/lib/icons";
 import { MoneyFormat } from "../../Common/formatUtils";
 import {url} from "../../../App";
 import {isEmpty} from "lodash";
+import moment from "moment";
+import {filter, orderBy} from "lodash/collection";
+import { DateRangePicker } from 'react-date-range';
+
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 const { Option } = Select;
 
 Chart.register(CategoryScale, LinearScale, LineElement, PointElement);
 const TurnoverStatisticals = () => {
   const [dataSource, setDataSource] = useState([]);
+  const [rootDataSource, setRootDataSource] = useState([]);
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(0);
+  const [chartData, setChartData] = useState({});
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection',
+  });
 
   useEffect(() => {
     fetchOrders()
@@ -50,6 +64,7 @@ const TurnoverStatisticals = () => {
   useEffect(() => {
     if (orders.length) {
       const collecttedProducts = {};
+      const tempChartData = {};
       orders.forEach((order) => {
         if (order.orderItems.length) {
           order.orderItems.forEach((item) => {
@@ -60,12 +75,14 @@ const TurnoverStatisticals = () => {
                   key: Math.floor(Math.random() * 10000) + 1,
                   nameProduct: item.name,
                   totalSolds: 1,
+                  receiveDate: moment(order.createdDate).format('DD/MM/YYYY HH:mm A'),
                   price: item.price,
                   totalMoney: item.price,
                 }
               } else {
                 temp = {
                   ...temp,
+                  receiveDate: moment(order.createdDate).format('DD/MM/YYYY HH:mm A'),
                   totalSolds: temp.totalSolds + 1,
                   totalMoney: temp.totalMoney + item.price
                 }
@@ -76,9 +93,38 @@ const TurnoverStatisticals = () => {
         }
       });
 
-      setDataSource(Object.keys(collecttedProducts).map((key) => (collecttedProducts[key])));
+      let tempDataSource = Object.keys(collecttedProducts).map((key) => (collecttedProducts[key]));
+      tempDataSource = orderBy(tempDataSource, ['receiveDate'], ['asc']);
+
+      tempDataSource.map((item) => {
+        if (tempChartData[moment(item.receiveDate, 'DD/MM/YYYY HH:mm A').format('DD/MM')]) {
+          tempChartData[moment(item.receiveDate, 'DD/MM/YYYY HH:mm A').format('DD/MM')] += item.totalMoney;
+        } else {
+          tempChartData[moment(item.receiveDate, 'DD/MM/YYYY HH:mm A').format('DD/MM')] = item.totalMoney;
+        }
+      });
+      setDataSource(tempDataSource);
+      setRootDataSource(tempDataSource);
+      setChartData(tempChartData);
     }
   }, [orders]);
+
+  useEffect(() => {
+    let tempDataSource = [...rootDataSource];
+    tempDataSource = filter(tempDataSource,
+        (item) => moment(item.receiveDate, 'DD/MM/YYYY HH:mm A') > selectionRange.startDate
+            && moment(item.receiveDate, 'DD/MM/YYYY HH:mm A') < selectionRange.endDate)
+    const tempChartData = {};
+    tempDataSource.map((item) => {
+      if (tempChartData[moment(item.receiveDate, 'DD/MM/YYYY HH:mm A').format('DD/MM')]) {
+        tempChartData[moment(item.receiveDate, 'DD/MM/YYYY HH:mm A').format('DD/MM')] += item.totalMoney;
+      } else {
+        tempChartData[moment(item.receiveDate, 'DD/MM/YYYY HH:mm A').format('DD/MM')] = item.totalMoney;
+      }
+    });
+    setDataSource(tempDataSource);
+    setChartData(tempChartData);
+  }, [selectionRange]);
 
   useEffect(() => {
     let temp = 0;
@@ -110,6 +156,11 @@ const TurnoverStatisticals = () => {
       key: "totalSolds",
     },
     {
+      title: "Ngày bán",
+      dataIndex: "receiveDate",
+      key: "receiveDate",
+    },
+    {
       title: "Giá bán",
       dataIndex: "price",
       key: "price",
@@ -125,20 +176,7 @@ const TurnoverStatisticals = () => {
     <Line
       style={{ height: "420px" }}
       data={{
-        labels: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        labels: [...Object.keys(chartData).map((item) => item)],
         datasets: [
           {
             label: "Earnings",
@@ -153,10 +191,7 @@ const TurnoverStatisticals = () => {
             pointHoverBorderColor: "rgba(78, 115, 223, 1)",
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: [
-              0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000,
-              25000, 40000,
-            ],
+            data: [...Object.keys(chartData).map((item) => chartData[item])],
           },
         ],
       }}
@@ -178,12 +213,21 @@ const TurnoverStatisticals = () => {
     />
   );
 
+  const handleSelectDate = (data) => {
+    setSelectionRange(data.selection);
+  }
+
   const selectFilter = (
-    <Select defaultValue="year" size="large" style={{ width: 150 }}>
-      <Option value="year">Năm</Option>
-      <Option value="week">Tháng</Option>
-      <Option value="month">Tuần</Option>
-    </Select>
+      <div>
+        <Button type="primary" onClick={() => setShowDatePicker(!showDatePicker)}>
+          {showDatePicker ? 'Hide' : 'Open'}
+        </Button>
+        <DateRangePicker
+            className={[styles.dateRangePicker, showDatePicker ? {} : styles.hidden]}
+            ranges={[selectionRange]}
+            onChange={handleSelectDate}
+        />
+      </div>
   );
   const menu = (
     <Menu>
@@ -234,7 +278,7 @@ const TurnoverStatisticals = () => {
     <div>
       <StatisticalsManagement
           title="Thống kê doanh thu"
-          // chart={chart}
+          chart={chart}
           className={styles.statisticals_chart_content}
           table={
             <Table
@@ -243,8 +287,8 @@ const TurnoverStatisticals = () => {
                 pagination={{pageSize: 10}}
             />
           }
-          // select={selectFilter}
-          // titleChart={titleChart}
+          select={selectFilter}
+          titleChart={titleChart}
       />
       <div className={styles.totalMoneyStatistical}>
         Tổng doanh thu: <span>{MoneyFormat(total)}</span>
